@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <!-- Favicon -->
+    <link id='favicon' rel="shortcut icon" href="{{url_for('static', filename='img/flight-logo.png')}}" type="image/x-png">
+    <title>TraveHub</title>
+</head>
+<body oncontextmenu="return false">
+
+
+<!-- navbar starts -->
+<header>
+        <a href="/" class="logo"><i class="fa-solid fa-plane-departure fa-flip"></i> TraveHub</a>
+
+        <div id="menu" class="fas fa-bars"></div>
+        <nav class="navbar">
+            <ul>
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">services</a></li>
+            <li><a href="#plan">Plan</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button>Sign In <i class="fa-solid fa-right-to-bracket"></i></button></li>
+            </ul>
+        </nav>
+</header>
+<!-- navbar ends -->
+
+
+<!-- header section starts -->
+<section class="home" id="home">
+    <div id="particles-js"></div>
+
+    <div class="content">
+    <h2>___<br/>Trave<span>Hub</span></h2>
+    <p>Embark on <span class="typing-text"></span></p>
+    <a href="#about" class="btn"><span>About Us</span>
+      <i class="fa-solid fa-circle-arrow-down fa-beat"></i>
+    </a>
+    <div class="socials">
+        <ul class="social-icons">
+        </ul>
+      </div>
+    </div>
+<div class="image">
+    <img draggable="false" class="tilt" src="{{url_for('static', filename='img/travel-logo.png')}}" alt="">
+</div>
+</section>
+<!-- header section ends -->
+
+
+<!-- about section starts -->
+<section class="about" id="about">
+    <h2 class="heading"><i class="fa-solid fa-user fa-sm"></i> About <span>Us</span></h2>
+    
+    <div class="row">
+
+    <div class="image">
+        <img draggable="false" class="tilt" src="{{url_for('static', filename='img/profile.png')}}" alt="">
+    </div>
+    <div class="content">
+        <h3>FlightHub</h3>
+        <span class="tag">FlightHub Team</span>
+        
+        <p>We are a passionate team of travel, dedicated to providing exceptional travel experiences for our customers. With expertise in flight booking, itinerary planning, and customer support, we are here to make your journey seamless and memorable.<br/><br/>
+           Whether you're embarking on a solo adventure, planning a family vacation, or traveling for business, FlightHub is your trusted travel companion. We are committed to ensuring that your travel experience is enjoyable, stress-free, and filled with unforgettable moments.<br/><br/>
+           Join us on this exciting journey and let FlightHub bring your travel dreams to life.
+        </p>
+
+    </div>
+</section>
+<!-- about section ends -->
+
+<!-- services section starts -->
+<section class="services" id="services">
+
+    <h2 class="heading"><i class="fa-solid fa-compass"></i> Service & <span>Help</span></h2>
+
+    <div class="container">
+
+        <div class="row" id="servicesContainer">
+            <div class="bar">
+                <div class="info">
+                  <img src="{{url_for('static', filename='img/service-icon/airline-tickets.png')}}" width="60" height="60">
+                  <span>Airfare Comparison</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="servicesContainer">
+            <div class="bar">
+                <div class="info">
+                  <img src="{{url_for('static', filename='img/service-icon/airline-tickets.png')}}" width="60" height="60">
+                  <span>Test</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- services section ends -->
+
+<!-- plan section starts -->
+<section class="plan" id="plan">
+
+  <h2 class="heading"><i class="fa-solid fa-earth-americas"></i> Trip Planning </h2>
+
+  <div class="timeline">
+
+
+    <div class="container right">
+      <div class="content">
+        <div class="tag">
+          <h2>Begin Your Journey</h2>
+        </div>
+        <div class="desc">
+            <h3>Let's Start Up Your An Action-Packed Trip</h3>
+            <p>Reached the destination</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container left">
+      <div class="content">
+        <div class="tag">
+          <h2>XXXX XXX</h2>
+        </div>
+        <div class="desc">
+            <h3>XX XXXX | XXXX</h3>
+            <p>XXXX XXXX</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container right">
+      <div class="content">
+        <div class="tag">
+          <h2>XXXX XXX</h2>
+        </div>
+        <div class="desc">
+            <h3>XX XXXX | XXXX</h3>
+            <p>XXXX XXXX</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container left">
+      <div class="content">
+        <div class="tag">
+          <h2>XXX XXXX</h2>
+        </div>
+        <div class="desc">
+            <h3>XX | XXXX</h3>
+            <p>XXXX XXXX</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container right">
+      <div class="content">
+        <div class="tag">
+          <h2>XXX XXXX</h2>
+        </div>
+        <div class="desc">
+            <h3>XX XXXX | XXXX</h3>
+            <p>XXXX XXXX</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container left">
+      <div class="content">
+        <div class="tag">
+          <h2>XXX XXXX</h2>
+        </div>
+        <div class="desc">
+            <h3>XX XXXX | XXXX</h3>
+            <p>XXXX XXXX</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</section>
+<!-- plan section ends -->
+
+<!-- contact section starts -->
+<section class="contact" id="contact">
+  
+  <h2 class="heading"><i class="fa-solid fa-envelope-open-text"></i> Get in <span>Touch</span></h2>
+
+  <div class="container">
+    <div class="content">
+      <div class="image-box">
+        <img draggable="false" src="{{url_for('static', filename='img/contact1.png')}}" alt="">
+      </div>
+    <form id="contact-form">
+      
+      <div class="form-group">
+        <div class="field">
+          <input type="text" name="name" placeholder="Name" required>
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="field">
+          <input type="text" name="email" placeholder="Email" required>
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="field">
+          <input type="text" name="phone" placeholder="Phone">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="message">
+        <textarea placeholder="Message" name="message" required></textarea>
+        <i class="fa-solid fa-comment-dots"></i>
+        </div>
+        </div>
+      <div class="button-area">
+        <button type="submit">
+          Submit <i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </form>
+  </div>
+  </div>
+</section>
+<!-- contact section ends -->
+
+
+<!-- footer section starts -->
+<section class="footer">
+
+  <div class="box-container">
+
+      <div class="box">
+          <h3>FlightHub</h3>
+          <p>Your ultimate travel companion. Discover, book flights, and unlock incredible travel experiences. <br/> <br/>Fly with confidence, explore with ease! </p>
+      </div>
+
+      <div class="box">
+          <h3>contact info</h3>
+          <p> <i class="fa-solid fa-phone"></i>+852 XXXX-XXXX</p>
+          <p> <i class="fa-solid fa-envelope"></i>FYP@gmail.com</p>
+          <p> <i class="fa-solid fa-map-location-dot"></i>Tseung Kwan O, New Territories</p>
+          <div class="share">
+
+          </div>
+      </div>
+  </div>
+
+
+</section>
+<!-- footer section ends -->
+
+
+<!-- scroll top btn -->
+<a href="#home" aria-label="ScrollTop" class="fas fa-angle-up" id="scroll-top"></a>
+<!-- scroll back to top -->
+
+
+<!-- ==== ALL MAJOR JAVASCRIPT CDNS STARTS ==== -->
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/f71920fd21.js" crossorigin="anonymous"></script>
+
+<!-- jquery cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- typed.js cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"></script>
+
+<!-- particle.js links -->
+<script src="{{url_for('static', filename='js/particles.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/app.js')}}"></script>
+
+<!-- vanilla tilt.js links -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
+<!-- scroll reveal anim -->
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<!-- ==== ALL MAJOR JAVASCRIPT CDNS ENDS ==== -->
+
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+
+</body>
+</html>
