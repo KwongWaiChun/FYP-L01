@@ -6,21 +6,23 @@
 --search list starts--(ctrl+f)
 
   1.navbar starts
+  2.login form starts
+  --login form ends
   --navbar ends
-  2.hamburger icon starts
+  3.hamburger icon starts
   --hamburger icon ends
-  3.header section starts
-  4.social icons starts
+  4.header section starts
+  5.social icons starts
   --social icons ends
-  5.header media queries starts
+  6.header media queries starts
   --header media queries ends
   --header section ends
-  6.about section starts
-  7.about media queries starts
+  7.about section starts
+  8.about media queries starts
   --about media queries ends
   --about section ends
-  8.services section starts
-  9.services media queries starts
+  9.services section starts
+  10.services media queries starts
   --services media queries ends
   --services section ends
   10.plan section starts
@@ -163,6 +165,168 @@ header .navbar ul li button:hover{
   border-bottom: 0.2rem solid #FF8C00;
   padding: 0.5rem 0;
 }
+
+/* login form starts */
+header .navbar ul .form {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+header .navbar ul .close {
+  color: #aaa;
+  margin-top: -20px;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+header .navbar ul .close:hover,
+header .navbar ul .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+header .navbar ul .form .box-form {
+  margin-top: 7.5%;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  height: 75%;
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex: 1 1 100%;
+  align-items: stretch;
+  justify-content: space-between;
+  box-shadow: 0 0 20px 6px #00000085;
+}
+header .navbar ul .form .box-form .left .overlay {
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  background: lightblue;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+header .navbar ul .form .box-form .left .overlay span p {
+  margin-top: 30px;
+  color: #505050;
+  font-size: 14px;
+  font-weight: 750;
+  margin-left: auto;
+  margin-right: auto;
+  width: 209px;
+}
+header .navbar ul .form .box-form .left .overlay span a {
+  background: #FFFFFF;
+  color: #000000;
+  width: 100%;
+  min-width: 230px;
+  margin-top: 20px;
+  padding: 10px 40px;
+  border-radius: 7px;
+  display: inline-block;
+  box-shadow: 0 3px 6px 1px #042d4657;
+}
+header .navbar ul .form .box-form .left {
+  overflow: hidden;
+}
+header .navbar ul .form .box-form .right {
+  padding: 75px;
+}
+header .navbar ul .form .box-form .right h1 {
+  font-size: 24px;
+  color: #505050;
+  line-height: 0;
+}
+header .navbar ul .form .box-form .right p {
+  font-size: 14px;
+  color: rgb(87, 87, 87);
+}
+header .navbar ul .form .box-form .right a {
+  font-size: 14px;
+  color: darkblue;
+  
+}
+header .navbar ul .form .box-form .right .inputs {
+  overflow: hidden;
+}
+header .navbar ul .form .box-form .right input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 25px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #B0B3B9;
+}
+header .navbar ul .form .box-form .right .setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .navbar ul .form .box-form .right .setting input {
+  margin: 0;
+  margin-right: 7px;
+  width: auto;
+}
+header .navbar ul .form .box-form .right button {
+  float: none;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 10px 35px;
+  border-radius: 35px;
+  display: inline-block;
+  border: 0;
+  outline: 0;
+  background-color: darkblue;
+}
+
+header .navbar ul .form label {
+  display: block;
+  position: relative;
+  margin-left: 30px;
+}
+
+header .navbar ul .form label::before {
+  content: ' \f00c';
+  position: absolute;
+  font-family: FontAwesome;
+  background: transparent;
+  border: 2px solid darkblue;
+  border-radius: 4px;
+  color: transparent;
+  left: -30px;
+  transition: all 0.2s linear;
+}
+
+header .navbar ul .form label:hover::before {
+  font-family: FontAwesome;
+  content: ' \f00c';
+  color: #fff;
+  cursor: pointer;
+  background: darkblue;
+}
+
+header .navbar ul .form label span.text-checkbox {
+  display: inline-block;
+  height: auto;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+header .navbar ul .form label input[type="checkbox"] {
+  display: none;
+}
+/* login form ends */
 /* navbar ends */
 
 /* hamburger icon starts */
@@ -209,7 +373,16 @@ header .navbar ul li button:hover{
     padding: 1rem;
     color: #fff;
     border-radius: 0.5rem;
-    border-bottom: 0.5rem solid #011aff;
+    border-bottom: 0.5rem solid #c0c2d4;
+  }
+  header .navbar ul li button {
+    display: block;
+    padding: 1rem;
+    text-align: left;
+    color: #fff;
+    font-size: 2rem;
+    background-color: #0e0f31;
+  }
   }
   .fa-times {
     transform: rotate(180deg);
@@ -217,7 +390,7 @@ header .navbar ul li button:hover{
   header .navbar.nav-toggle {
     right: 0;
   }
-}
+
 /* hamburger icon ends */
 
 /* header section starts */

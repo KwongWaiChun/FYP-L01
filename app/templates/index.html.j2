@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index_style.css')}}">
     <!-- Favicon -->
     <link id='favicon' rel="shortcut icon" href="{{url_for('static', filename='img/flight-logo.png')}}" type="image/x-png">
     <title>TraveHub</title>
@@ -24,7 +24,49 @@
             <li><a href="#services">services</a></li>
             <li><a href="#plan">Plan</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><button>Sign In <i class="fa-solid fa-right-to-bracket"></i></button></li>
+            <li><button id="signin">Sign In <i class="fa-solid fa-right-to-bracket"></i></button></li>
+
+            <div id="loginForm" class="form">
+
+              <div class="box-form">
+	              <div class="left">
+		              <div class="overlay">
+                    <span>
+			                <p>-- Login With Social Media --</p>
+                      <br/>
+                      <a href="#"><img draggable="false" src="{{url_for('static', filename='img/google_icon.png')}}" alt="">   Login with Google</a>
+                      <br/>
+			                <a href="#"><img draggable="false" src="{{url_for('static', filename='img/facebook_icon.png')}}" alt="">   Login with Facebook</a>
+		                </span>
+		              </div>
+	              </div>
+
+	              <div class="right">
+                  <span class="close">&times;</span>
+		              <h1>Login Now</h1><br/><br/><br/>
+		              <p>Don't have an account? <a href="{{url_for('register')}}">Creat Your Account</a></p>
+		              <div class="inputs">
+			              <input type="text" placeholder="user name">
+			              <br>
+			              <input type="password" placeholder="password">
+		              </div>
+                  <br><br>
+			
+		              <div class="setting">
+				            <!-- Angular -->
+	                  <label>
+		                  <input type="checkbox" name="item" checked/>
+		                  <span class="text-checkbox">Remember me</span>
+	                  </label>
+			              <a href="{{url_for('forget')}}">forget password?</a>
+		              </div>
+			            <br>
+			            <button>Login</button>
+	              </div>
+
+	            </div>
+              
+            </div>
             </ul>
         </nav>
 </header>
@@ -263,6 +305,9 @@
 
 
 <!-- ==== ALL MAJOR JAVASCRIPT CDNS STARTS ==== -->
+<!-- AWS JavaScript SDK -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.931.0.min.js"></script>
+
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/f71920fd21.js" crossorigin="anonymous"></script>
 
@@ -274,7 +319,7 @@
 
 <!-- particle.js links -->
 <script src="{{url_for('static', filename='js/particles.min.js')}}"></script>
-<script src="{{url_for('static', filename='js/app.js')}}"></script>
+<script src="{{url_for('static', filename='js/particles.js')}}"></script>
 
 <!-- vanilla tilt.js links -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
@@ -286,7 +331,7 @@
 
 <!-- ==== ALL MAJOR JAVASCRIPT CDNS ENDS ==== -->
 
-<script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script src="{{url_for('static', filename='js/index_script.js')}}"></script>
 
 </body>
 </html>

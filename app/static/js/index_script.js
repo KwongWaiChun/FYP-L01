@@ -56,6 +56,37 @@ $(document).ready(function () {
 
 });
 
+// Get the form element
+var form = document.getElementById("loginForm");
+
+// Get the button that opens the form
+var signIn = document.getElementById("signin");
+
+// Get the <span> element that closes the form
+var closeBtn = document.getElementsByClassName("close")[0];
+
+// Function to open the form
+function openForm() {
+  form.style.display = "block";
+}
+
+// Function to close the form
+function closeForm() {
+  form.style.display = "none";
+}
+
+// Event listener for button click to open the form
+signIn.addEventListener("click", openForm);
+
+// Event listener for close button click to close the form
+closeBtn.addEventListener("click", closeForm);
+
+// Event listener for clicking outside the form to close it
+window.addEventListener("click", function (event) {
+  if (event.target == form) {
+    closeForm();
+  }
+});
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
