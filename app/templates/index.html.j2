@@ -30,38 +30,38 @@
 
               <div class="box-form">
 	              <div class="left">
-		              <div class="overlay">
-                    <span>
-			                <p>-- Login With Social Media --</p>
-                      <br/>
-                      <a href="#"><img draggable="false" src="{{url_for('static', filename='img/google_icon.png')}}" alt="">   Login with Google</a>
-                      <br/>
-			                <a href="#"><img draggable="false" src="{{url_for('static', filename='img/facebook_icon.png')}}" alt="">   Login with Facebook</a>
-		                </span>
-		              </div>
+                  <img draggable="false" class="login-bg" src="{{url_for('static', filename='img/login-background.png')}}" alt="">
 	              </div>
 
 	              <div class="right">
                   <span class="close">&times;</span>
 		              <h1>Login Now</h1><br/><br/><br/>
-		              <p>Don't have an account? <a href="{{url_for('register')}}">Creat Your Account</a></p>
-		              <div class="inputs">
+		              <p>Don't have an account? <a href="{{url_for('register')}}" class="text">Creat Your Account</a></p>
+		              
+                  <div class="social-media">
+                    <span>
+                      <a href="#" class="google"><i class="fa fa-google fa-fw"></i> Login with Google </a>
+		                </span>
+                  </div>
+
+                  <div class="inputs">
 			              <input type="text" placeholder="user name">
 			              <br>
 			              <input type="password" placeholder="password">
 		              </div>
                   <br><br>
-			
+                  
 		              <div class="setting">
-				            <!-- Angular -->
-	                  <label>
-		                  <input type="checkbox" name="item" checked/>
-		                  <span class="text-checkbox">Remember me</span>
-	                  </label>
-			              <a href="{{url_for('forget')}}">forget password?</a>
+                    <input type="checkbox" id="remember" name="remember" value="remember">
+                    <label for="remember">&nbsp;&nbsp;&nbsp;Remember me</label>
+			              <a href="{{url_for('forget')}}" class="forget" id="above-px">forget password?</a>
 		              </div>
-			            <br>
+                  <div class="setting-px">
+                    <a href="{{url_for('forget')}}" class="forget" id="below-px">forget password</a>
+			            </div>
+                  <br>
 			            <button>Login</button>
+
 	              </div>
 
 	            </div>
