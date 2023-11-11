@@ -34,36 +34,36 @@
 	              </div>
 
 	              <div class="right">
-                  <span class="close">&times;</span>
-		              <h1>Login Now</h1><br/><br/><br/>
-		              <p>Don't have an account? <a href="{{url_for('register')}}" class="text">Creat Your Account</a></p>
+                <form class="login-form" method="post">
+                    <span class="close">&times;</span>
+		                <h1>Login Now</h1><br/><br/><br/>
+		                <p>Don't have an account? <a href="{{url_for('register')}}" class="text">Creat Your Account</a></p>
 		              
-                  <div class="social-media">
-                    <span>
-                      <a href="#" class="google"><i class="fa fa-google fa-fw"></i> Login with Google </a>
-		                </span>
-                  </div>
+                    <div class="social-media">
+                      <span>
+                        <a href="#" class="google"><i class="fa fa-google fa-fw"></i> Login with Google </a>
+		                  </span>
+                    </div>
 
-                  <div class="inputs">
-			              <input type="text" placeholder="user name">
-			              <br>
-			              <input type="password" placeholder="password">
-		              </div>
-                  <br><br>
+                    <div class="inputs">
+			                <input type="text" name="account" placeholder="user name">
+			                <br>
+			                <input type="password" name="password" placeholder="password">
+		                </div>
+                    <br><br>
                   
-		              <div class="setting">
-                    <input type="checkbox" id="remember" name="remember" value="remember">
-                    <label for="remember">&nbsp;&nbsp;&nbsp;Remember me</label>
-			              <a href="{{url_for('forget')}}" class="forget" id="above-px">forget password?</a>
-		              </div>
-                  <div class="setting-px">
-                    <a href="{{url_for('forget')}}" class="forget" id="below-px">forget password</a>
-			            </div>
-                  <br>
-			            <button>Login</button>
-
+		                <div class="setting">
+                      <input type="checkbox" id="remember" name="remember" value="remember">
+                      <label for="remember">&nbsp;Remember me</label>
+			                <a href="{{url_for('forget')}}" class="forget" id="above-px">forget password?</a>
+		                </div>
+                    <div class="setting-px">
+                      <a href="{{url_for('forget')}}" class="forget" id="below-px">forget password</a>
+			              </div>
+                    <br>
+			              <button>Login</button>
+                </form>    
 	              </div>
-
 	            </div>
               
             </div>
