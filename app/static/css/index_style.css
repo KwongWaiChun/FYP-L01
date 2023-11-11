@@ -231,7 +231,6 @@ header .navbar ul .form .box-form .right {
   padding: 45px;
   margin-left: auto;
   margin-right: auto;
-  overflow: hidden;
   overflow-y: scroll;
 }
 header .navbar ul .form .box-form .right::-webkit-scrollbar {
@@ -274,7 +273,7 @@ header .navbar ul .form .box-form .right .setting {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%
+  width: 100%;
 }
 header .navbar ul .form .box-form .right .setting input {
   margin: 0;
@@ -283,14 +282,14 @@ header .navbar ul .form .box-form .right .setting input {
 header .navbar ul .form .box-form .right .setting-px{
   margin-top: 25px;
 }
-@media (min-width: 1100px) {
+@media (min-width: 1250px) {
   #below-px {
     display: none;
     font-size: 40px;
     color: darkblue;
   }
 }
-@media (max-width: 1099px) {
+@media (max-width: 1249px) {
   #above-px {
     display: none;
   }
@@ -301,7 +300,7 @@ header .navbar ul .form label {
   font-size: 13px;
 }
 header .navbar ul .form label input[type="checkbox"] {
-  display:block ;
+  display:block;
 }
 header .navbar ul .form .box-form .right button {
   float: right;
