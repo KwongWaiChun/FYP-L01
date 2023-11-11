@@ -1,8 +1,10 @@
 ## FYP-Website
-Website build using HTML5, CSS3, JavaScript, Flask and jinja.
+Website build using HTML5, CSS3, JavaScript, Flask and jinja.<br/>
 
-Useful commands:<br/>
+pip install commands:<br/>
 pip3 install -r requirements.txt<br/>
+<br/>
+Useful commands:<br/>
 flask --debug run --host=0.0.0.0<br/>
 python3 -m http.server<br/>
 
