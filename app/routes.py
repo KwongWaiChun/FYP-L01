@@ -31,6 +31,8 @@ def index():
         else:
             # Handle an error response from the API Gateway
             # You can display an error message to the user or perform other error handling logic
+            session.pop('ac', None)  # 從session中移除'ac'
+            session.pop('pw', None)  # 從session中移除'pw'
             return redirect(url_for('index'))
     return render_template("index.html.j2")
 

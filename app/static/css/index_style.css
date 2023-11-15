@@ -54,7 +54,7 @@
   text-decoration: none;
   outline: none;
   border: none;
-  text-transform: capitalize;
+  text-transform: none;
   transition: all 0.2s linear;
 }
 html {
@@ -308,7 +308,6 @@ header .navbar ul .form .box-form .right button {
   font-size: 16px;
   padding: 5px 35px;
   border-radius: 35px;
-  display: inline-block;
   border: 0;
   outline: 0;
   background-color: darkblue;
