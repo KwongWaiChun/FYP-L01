@@ -7,6 +7,8 @@ from app.forms import LoginForm
 
 app.secret_key = 'super secret key'
 
+api_id = 'e5ajctjbfg'
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -23,7 +25,13 @@ def index():
         }
 
         # Make an HTTP POST request to the API Gateway endpoint
-        response = requests.post('https://i1rams7sqc.execute-api.us-east-1.amazonaws.com/prod/data', json=data)
+        response = requests.post('https://' + api_id + '.execute-api.us-east-1.amazonaws.com/prod/data', json=data)
+
+        response_data = response.json()
+
+        # Access the message from the response
+        message = response_data['message']
+        session['ms'] = message
 
         if response.status_code == 200:
             # Handle a successful response from the API Gateway
@@ -40,9 +48,11 @@ def index():
 def login():
     ac = session.get('ac')
     pw = session.get('pw')
+    ms = session.get('ms')
     session.pop('ac', None)  # 從session中移除'ac'
     session.pop('pw', None)  # 從session中移除'pw'
-    return render_template('login.html.j2', ac=ac, pw=pw)
+    session.pop('ms', None)
+    return render_template('login.html.j2', ac=ac, pw=pw, ms=ms)
 
 @app.route('/forget', methods=['GET', 'POST'])
 def forget():
