@@ -1,9 +1,8 @@
 from flask import render_template, flash, session, redirect, url_for, request, make_response, url_for, jsonify
 from flask_login import login_user, logout_user, login_required
-#from flask_restful import Api, Resource, reqparse
-from translate import Translator
 from app import app
 from app.forms import LoginForm
+import translators as ts
 import requests
 
 app.secret_key = 'super secret key'
@@ -56,16 +55,14 @@ def login():
     session.pop('ms', None)
     return render_template('login.html.j2', ac=ac, pw=pw, ms=ms)
 
-@app.route('/translate', methods=['GET', 'POST'])  # Allow both GET and POST methods
+@app.route('/translate', methods=['GET', 'POST'])
 def translate():
     if request.method == 'POST':
         language_from = request.form['langFrom']
         language_to = request.form['langTo']
         text = request.form['text']
-        translator = Translator(provider='mymemory',from_lang=language_from, to_lang=language_to)
-        translate_out = translator.translate(text)
+        translate_out = ts.translate_text(query_text=text, translator='deepl', from_language=language_from,to_language=language_to)
         return jsonify({'translation': translate_out})
-    # Handle GET requests, if needed
     return render_template('translate.html.j2')
 
 @app.route('/forget', methods=['GET', 'POST'])
