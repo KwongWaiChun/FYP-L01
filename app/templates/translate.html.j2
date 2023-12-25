@@ -6,9 +6,9 @@
     <h1>Welcome</h1>
     <form>
         <label for="text">Enter text:</label>
-        <textarea id="text" name="text" rows="4" cols="50" maxlength="500" oninput="countCharacters()"></textarea>
+        <textarea id="text" name="text" rows="4" cols="50" maxlength="250" oninput="countCharacters()"></textarea>
         <br/>
-        <span id="char-count">0/500</span>
+        <span id="char-count">0/250</span>
         <br/>
 
         <label for="lang-from">Translate From:</label>
@@ -69,7 +69,7 @@
     function countCharacters() {
         const text = textArea.value;
         const currentCount = text.length;
-        charCountSpan.textContent = `${currentCount}/500`;
+        charCountSpan.textContent = `${currentCount}/250`;
     }
 
     textArea.addEventListener('input', translateText);
