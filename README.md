@@ -3,7 +3,8 @@ Website build using HTML5, CSS3, JavaScript, Flask and jinja.<br/>
 
 pip install commands:<br/>
 pip3 install -r requirements.txt<br/>
-pip install flask-restful<br/>
+pip install translate<br/>
+pip install flask-restful (?)<br/>
 <br/>
 Useful commands:<br/>
 flask --debug run --host=0.0.0.0<br/>

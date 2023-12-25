@@ -34,6 +34,20 @@ services:
       - flask_app
     restart: unless-stopped
 
+  aurora_db:
+    container_name: aurora_container
+    image: mysql
+    environment:
+      MYSQL_HOST: <Aurora endpoint URL>
+      MYSQL_USER: <Aurora username>
+      MYSQL_PASSWORD: <Aurora password>
+      MYSQL_DATABASE: <Aurora database name>
+    volumes:
+      - aurora_data:/var/lib/mysql
+    networks:
+      - flask_app
+    restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4

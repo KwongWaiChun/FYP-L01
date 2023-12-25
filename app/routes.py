@@ -1,12 +1,14 @@
-from flask import render_template, flash, session, redirect, url_for, request, make_response, url_for
+from flask import render_template, flash, session, redirect, url_for, request, make_response, url_for, jsonify
 from flask_login import login_user, logout_user, login_required
-from flask_restful import Api, Resource, reqparse
-import requests
+#from flask_restful import Api, Resource, reqparse
+from translate import Translator
 from app import app
 from app.forms import LoginForm
+import requests
 
 app.secret_key = 'super secret key'
 
+#API
 api_id = 'e5ajctjbfg'
 
 @app.route('/', methods=['GET', 'POST'])
@@ -53,6 +55,18 @@ def login():
     session.pop('pw', None)  # 從session中移除'pw'
     session.pop('ms', None)
     return render_template('login.html.j2', ac=ac, pw=pw, ms=ms)
+
+@app.route('/translate', methods=['GET', 'POST'])  # Allow both GET and POST methods
+def translate():
+    if request.method == 'POST':
+        language_from = request.form['langFrom']
+        language_to = request.form['langTo']
+        text = request.form['text']
+        translator = Translator(provider='mymemory',from_lang=language_from, to_lang=language_to)
+        translate_out = translator.translate(text)
+        return jsonify({'translation': translate_out})
+    # Handle GET requests, if needed
+    return render_template('translate.html.j2')
 
 @app.route('/forget', methods=['GET', 'POST'])
 def forget():
