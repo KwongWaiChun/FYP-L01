@@ -1,4 +1,4 @@
-from models import User
+from models import *
 
 # Create the tables
 db.create_all()

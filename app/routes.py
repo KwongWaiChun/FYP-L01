@@ -1,11 +1,11 @@
 from flask import render_template, flash, session, redirect, url_for, request, make_response, url_for, jsonify
 from flask_login import login_user, logout_user, login_required
-from app import app
-from app.forms import LoginForm
+
+from app import app, db
+from app.models import *
+
 import translators as ts
 import requests
-
-app.secret_key = 'super secret key'
 
 #API
 api_id = 'e5ajctjbfg'
@@ -64,6 +64,18 @@ def translate():
         translate_out = ts.translate_text(query_text=text, translator='deepl', from_language=language_from,to_language=language_to)
         return jsonify({'translation': translate_out})
     return render_template('translate.html.j2')
+
+@app.route('/dbtest')
+def dbtest():
+    db.create_all()
+    u1 = User(id='001', username='john1', email='john1@example.com')
+    u2 = User(id='002', username='susan1', email='susan1@example.com')
+    u1.set_password("P@ssw0rd")
+    u2.set_password("P@ssw0rd")
+    db.session.add(u1)
+    db.session.add(u2)
+    db.session.commit()
+    return "Done"
 
 @app.route('/forget', methods=['GET', 'POST'])
 def forget():

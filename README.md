@@ -4,6 +4,8 @@ Website build using HTML5, CSS3, JavaScript, Flask and jinja.<br/>
 pip install commands:<br/>
 pip3 install -r requirements.txt<br/>
 pip install translators<br/>
+pip install sshtunnel<br/>
+pip install pymysql<br/>
 <br/>
 Useful commands:<br/>
 flask --debug run --host=0.0.0.0<br/>
