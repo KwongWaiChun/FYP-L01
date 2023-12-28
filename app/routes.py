@@ -68,10 +68,8 @@ def translate():
 @app.route('/dbtest')
 def dbtest():
     db.create_all()
-    u1 = User(id='001', username='john1', email='john1@example.com')
-    u2 = User(id='002', username='susan1', email='susan1@example.com')
-    u1.set_password("P@ssw0rd")
-    u2.set_password("P@ssw0rd")
+    u1 = User(id='001', username='john1', email='john1@example.com', password='test01@')
+    u2 = User(id='002', username='susan1', email='susan1@example.com', password='test02@')
     db.session.add(u1)
     db.session.add(u2)
     db.session.commit()
