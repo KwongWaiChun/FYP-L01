@@ -19,6 +19,6 @@ Useful link:<br/>
 <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome</a>
 
 ## 📌Reference link
-<a href="https://github.com/jigar-sable/Portfolio-Website" target="_blank">Reference github</a>
-<a href="https://jigarsable.netlify.app/" target="_blank">Reference Website</a>
-<a href="https://futuristic-girdle-56f.notion.site/FYP-ffd5b918319f4b8ea133bff9e5415994?pvs=4" target="_blank">Notion FYP</a>
+<a href="https://github.com/jigar-sable/Portfolio-Website" target="_blank">Reference github</a><br/>
+<a href="https://jigarsable.netlify.app/" target="_blank">Reference Website</a><br/>
+<a href="https://futuristic-girdle-56f.notion.site/FYP-ffd5b918319f4b8ea133bff9e5415994?pvs=4" target="_blank">Notion FYP</a><br/>
