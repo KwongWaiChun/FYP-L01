@@ -65,16 +65,6 @@ def translate():
         return jsonify({'translation': translate_out})
     return render_template('translate.html.j2')
 
-@app.route('/dbtest')
-def dbtest():
-    db.create_all()
-    u1 = User(id='001', username='john1', email='john1@example.com', password='test01@')
-    u2 = User(id='002', username='susan1', email='susan1@example.com', password='test02@')
-    db.session.add(u1)
-    db.session.add(u2)
-    db.session.commit()
-    return "Done"
-
 @app.route('/forget', methods=['GET', 'POST'])
 def forget():
     return render_template('forget.html.j2')
@@ -86,3 +76,15 @@ def register():
 @app.route('/flight', methods=['GET', 'POST'])
 def flight():
     return render_template('flight.html.j2')
+
+################################################################################################
+
+@app.route('/dbtest')
+def dbtest():
+    db.create_all()
+    u1 = User(userID=1, username='john1', email='john1@example.com', password='test01@', login_state=True, last_login=datetime.now(), create_time=datetime.now())
+    u2 = User(userID=2, username='susan1', email='susan1@example.com', password='test02@', login_state=True, last_login=datetime.now(), create_time=datetime.now())
+    db.session.add(u1)
+    db.session.add(u2)
+    db.session.commit()
+    return "Done"
