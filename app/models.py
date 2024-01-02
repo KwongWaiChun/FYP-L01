@@ -12,7 +12,7 @@ class User(db.Model):
 
 class Profile(db.Model):
     profileID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
-    userID = db.Column(db.Integer, db.ForeignKey('User.userID'), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey('user.userID'), nullable=False)
     icon = db.Column(db.String(100), nullable=True)
     introduction = db.Column(db.Text, nullable=True)
     state = db.Column(db.String(50), nullable=True)
@@ -30,27 +30,27 @@ class Translator(db.Model):
 class Translation(db.Model):
     translationID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
     languageCode = db.Column(db.String(10), nullable=False)
-    translatorID = db.Column(db.Integer, db.ForeignKey('Translator.translatorID'), nullable=False)
-    langID = db.Column(db.Integer, db.ForeignKey('Language.langID'), nullable=False)
+    translatorID = db.Column(db.Integer, db.ForeignKey('translator.translatorID'), nullable=False)
+    langID = db.Column(db.Integer, db.ForeignKey('language.langID'), nullable=False)
     create_time = db.Column(db.DateTime, nullable=False)
 
 class TranslateRecord(db.Model):
     transl_recordID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
-    translationID = db.Column(db.Integer, db.ForeignKey('Translation.translationID'), nullable=False)
-    userID = db.Column(db.Integer, db.ForeignKey('User.userID'), nullable=False)
+    translationID = db.Column(db.Integer, db.ForeignKey('translation.translationID'), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey('user.userID'), nullable=False)
     text_input = db.Column(db.Text, nullable=False)
     text_output = db.Column(db.Text, nullable=False)
     create_time = db.Column(db.DateTime, nullable=False)
 
 class TranslateFeedback(db.Model):
     transl_feedbackID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
-    userID = db.Column(db.Integer, db.ForeignKey('User.userID'), nullable=False)
-    translatorID = db.Column(db.Integer, db.ForeignKey('Translator.translatorID'), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey('user.userID'), nullable=False)
+    translatorID = db.Column(db.Integer, db.ForeignKey('translator.translatorID'), nullable=False)
     feedback = db.Column(db.Text, nullable=False)
     create_time = db.Column(db.DateTime, nullable=False)
 
 class TranslateScores(db.Model):
     transl_scoresID = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
-    userID = db.Column(db.Integer, db.ForeignKey('User.userID'), nullable=False)
-    translationID = db.Column(db.Integer, db.ForeignKey('Translation.translationID'), nullable=False)
+    userID = db.Column(db.Integer, db.ForeignKey('user.userID'), nullable=False)
+    translationID = db.Column(db.Integer, db.ForeignKey('translation.translationID'), nullable=False)
     scores = db.Column(db.Float, nullable=False)
