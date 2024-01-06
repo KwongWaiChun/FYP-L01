@@ -60,13 +60,22 @@ def login():
 
 @app.route('/translate', methods=['GET', 'POST'])
 def translate():
+    translator = Translator.query.order_by(Translator.translator).all()
     if request.method == 'POST':
+        translator_select = request.form['translator']
         language_from = request.form['langFrom']
         language_to = request.form['langTo']
         text = request.form['text']
-        translate_out = ts.translate_text(query_text=text, translator='youdao', from_language=language_from,to_language=language_to)
+        session['translator_select'] = translator_select
+        translate_out = ts.translate_text(query_text=text, translator=translator_select, from_language=language_from,to_language=language_to)
         return jsonify({'translation': translate_out})
-    return render_template('translate.html.j2')
+    translator_select = session.get('translator_select')
+
+    if translator_select == None:
+        translator_select = Translator.query.order_by(Translator.translator.asc()).first().translator
+    translator_id = Translator.query.filter_by(translator=translator_select).first().translatorID
+    translations_list = Translation.query.filter_by(translatorID=translator_id).all()
+    return render_template('translate.html.j2', translator=translator, translations_list=translations_list, translator_select=translator_select)
 
 @app.route('/forget', methods=['GET', 'POST'])
 def forget():
