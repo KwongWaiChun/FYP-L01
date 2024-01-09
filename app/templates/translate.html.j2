@@ -4,16 +4,17 @@
 </head>
 <body>
     <h1>Welcome</h1>
+    <p>{{ translator }}, {{ translations_list }}, {{ translator_default }}, {{ translator_select }}, {{ translator_id }}, {{ text }}, {{ language_from }}, {{ language_to }}, {{ translate_out }}</p>
     <form id="translationForm">
-        <label for="text">Enter text:</label>
-        <textarea id="text" name="text" rows="4" cols="50" maxlength="250" oninput="countCharacters()"></textarea>
+        <label for="translation_text_in">Enter text:</label>
+        <textarea id="translation_text_in" name="translation_text_in" rows="4" cols="50" maxlength="250" oninput="countCharacters()"></textarea>
         <br/>
         <span id="char-count">0/250</span>
         <br/>
-        <label for="translator">Translator:  {{ translator_select }}</label>
-        <br/>
+
+        <label for="translator">Translator: {{ translator_select_in }}</label>
         {% for translator in translator %}
-            <button id="translatorButton_{{ translator.id }}" value="{{ translator.translator }}" onclick="translateText('{{ translator.translator }}')">{{ translator.translator }}</button>
+            <button type="button" id="{{ translator.translator }}" name="translatorButton" value="{{ translator.translator }}" onclick="translateText('{{ translator.translator }}')">{{ translator.translator }}</button>
         {% endfor %}
         <br/>
 
@@ -35,26 +36,27 @@
         <br/>
     </form>
     <h2>Translation:</h2>
-    <p id="translation"></p>
+    <p id="translation_text_out"></p>
 
 <script>
-    const textArea = document.getElementById('text');
-    const translationParagraph = document.getElementById('translation');
+    const translationForm = document.getElementById('translationForm');
+    const textArea = document.getElementById('translation_text_in');
+    const translationParagraph = document.getElementById('translation_text_out');
     const langFromSelect = document.getElementById('lang-from');
     const langToSelect = document.getElementById('lang-to');
     const charCountSpan = document.getElementById('char-count');
-    const translationForm = document.getElementById('translationForm');
 
     function translateText(translator) {
         const text = textArea.value;
         const langFrom = langFromSelect.value;
         const langTo = langToSelect.value;
+        const translatorSelect = translator
 
         const formData = new FormData();
         formData.append('text', text);
         formData.append('langFrom', langFrom);
         formData.append('langTo', langTo);
-        formData.append('translator', translator);
+        formData.append('translatorSelect', translatorSelect);
 
         fetch('/translate', {
             method: 'POST',
@@ -62,10 +64,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            translationParagraph.textContent = data.translation;
-            setTimeout(() => {
-                location.reload();
-            }, 1000);
+            translationParagraph.textContent = data.translate_out;
         })
         .catch(error => {
             console.error('Error:', error);
