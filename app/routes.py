@@ -61,9 +61,6 @@ def login():
 @app.route('/translate', methods=['GET', 'POST'])
 def translate():
     translator = Translator.query.order_by(Translator.translator).all()
-    translator_default = Translator.query.order_by(Translator.translator.asc()).first().translator
-    translator_id = Translator.query.filter_by(translator=translator_default).first().translatorID
-    translator_select = translator_default
 
     if request.method == 'POST':
         text = request.form['text']
@@ -82,23 +79,21 @@ def translate():
             translate_out = ts.translate_text(query_text=text, translator=translator_select, from_language=language_from, to_language=language_to)
             session['translate_out'] = translate_out
         translate_out = session.get('translate_out')
-        session.pop('translate_out', None)
         return jsonify({'translate_out': translate_out})
 
     translator_select = session.get('translator_select')
     language_from = session.get('language_from')
     language_to = session.get('language_to')
     text = session.get('text')
-    translator_default = session.get('translator_default')
     translator_id = session.get('translator_id')
 
     translations_list = Translation.query.filter_by(translatorID=translator_id).all()
-
-    session.pop('translator_id', None)
-    session.pop('text', None)
+    session.pop('translator_select', None)
     session.pop('language_from', None)
     session.pop('language_to', None)
-    return render_template('translate.html.j2', translator=translator, translations_list=translations_list, translator_default=translator_default, translator_select=translator_select, translator_id=translator_id, language_from=language_from, language_to=language_to, text=text)
+    session.pop('text', None)
+    session.pop('translator_id', None)
+    return render_template('translate.html.j2', translator=translator, translations_list=translations_list, translator_select=translator_select, translator_id=translator_id, language_from=language_from, language_to=language_to, text=text)
 
 @app.route('/forget', methods=['GET', 'POST'])
 def forget():

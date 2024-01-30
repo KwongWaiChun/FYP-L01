@@ -4,7 +4,7 @@
 </head>
 <body>
     <h1>Welcome</h1>
-    <p>{{ translator }}, {{ translations_list }}, {{ translator_default }}, {{ translator_select }}, {{ translator_id }}, {{ text }}, {{ language_from }}, {{ language_to }}, {{ translate_out }}</p>
+    <p>{{ translator }}, {{ translations_list }}, {{ translator_select }}, {{ translator_id }}, {{ text }}, {{ language_from }}, {{ language_to }}, {{ translate_out }}</p>
     <form id="translationForm">
         <label for="translation_text_in">Enter text:</label>
         <textarea id="translation_text_in" name="translation_text_in" rows="4" cols="50" maxlength="250" oninput="countCharacters()"></textarea>
@@ -13,8 +13,11 @@
         <br/>
 
         <label for="translator">Translator: {{ translator_select_in }}</label>
+        {% set default_translator = translator[0].translator %}
         {% for translator in translator %}
-            <button type="button" id="{{ translator.translator }}" name="translatorButton" value="{{ translator.translator }}" onclick="translateText('{{ translator.translator }}')">{{ translator.translator }}</button>
+ 
+            <input type="radio" id="{{ translator.translator }}" name="translator" value="{{ translator.translator }}" {% if translator.translator == default_translator %}checked{% endif %}>
+            <label for="{{ translator.translator }}">   {{ translator.translator }}   </label>
         {% endfor %}
         <br/>
 
@@ -45,12 +48,19 @@
     const langFromSelect = document.getElementById('lang-from');
     const langToSelect = document.getElementById('lang-to');
     const charCountSpan = document.getElementById('char-count');
+    const translatorRadios = document.querySelectorAll('input[name="translator"]');
 
-    function translateText(translator) {
+    function translateText() {
         const text = textArea.value;
         const langFrom = langFromSelect.value;
         const langTo = langToSelect.value;
-        const translatorSelect = translator
+        let translatorSelect = '';
+
+        translatorRadios.forEach(radio => {
+            if (radio.checked) {
+                translatorSelect = radio.value;
+            }
+        });
 
         const formData = new FormData();
         formData.append('text', text);
@@ -65,6 +75,7 @@
         .then(response => response.json())
         .then(data => {
             translationParagraph.textContent = data.translate_out;
+            console.log(data.translations_list);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -77,13 +88,15 @@
         charCountSpan.textContent = `${currentCount}/250`;
     }
 
-    translationForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-    });
-
     textArea.addEventListener('input', translateText);
     langFromSelect.addEventListener('change', translateText);
     langToSelect.addEventListener('change', translateText);
+    translatorRadios.forEach(radio => {
+        radio.addEventListener('change', translateText);
+    });
+    window.onload = function() {
+        translateText();
+    };
 </script>
 
 </body>
