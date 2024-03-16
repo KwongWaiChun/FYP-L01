@@ -4,18 +4,15 @@
 </head>
 <body>
     <h1>Welcome</h1>
-    <p>{{ translator }}, {{ translations_list }}, {{ translator_select }}, {{ translator_id }}, {{ text }}, {{ language_from }}, {{ language_to }}, {{ translate_out }}</p>
     <form id="translationForm">
         <label for="translation_text_in">Enter text:</label>
         <textarea id="translation_text_in" name="translation_text_in" rows="4" cols="50" maxlength="250" oninput="countCharacters()"></textarea>
         <br/>
         <span id="char-count">0/250</span>
         <br/>
-
         <label for="translator">Translator: {{ translator_select_in }}</label>
         {% set default_translator = translator[0].translator %}
         {% for translator in translator %}
- 
             <input type="radio" id="{{ translator.translator }}" name="translator" value="{{ translator.translator }}" {% if translator.translator == default_translator %}checked{% endif %}>
             <label for="{{ translator.translator }}">   {{ translator.translator }}   </label>
         {% endfor %}
@@ -23,18 +20,11 @@
 
         <label for="lang-from">Translate From:</label>
         <select id="lang-from" name="lang-from">
-            <option value="auto">Autodetect</option>
-            {% for translation in translations_list %}
-                <option value="{{ translation.languageCode }}">{{ translation.languageCode }}</option>
-            {% endfor %}
         </select>
         <br/>
 
         <label for="lang-to">Translate to:</label>
         <select id="lang-to" name="lang-to">
-            {% for translation in translations_list %}
-                <option value="{{ translation.languageCode }}">{{ translation.languageCode }}</option>
-            {% endfor %}
         </select>
         <br/>
     </form>
@@ -42,7 +32,6 @@
     <p id="translation_text_out"></p>
 
 <script>
-    const translationForm = document.getElementById('translationForm');
     const textArea = document.getElementById('translation_text_in');
     const translationParagraph = document.getElementById('translation_text_out');
     const langFromSelect = document.getElementById('lang-from');
@@ -50,7 +39,7 @@
     const charCountSpan = document.getElementById('char-count');
     const translatorRadios = document.querySelectorAll('input[name="translator"]');
 
-    function translateText() {
+    function translateText(translator) {
         const text = textArea.value;
         const langFrom = langFromSelect.value;
         const langTo = langToSelect.value;
@@ -75,18 +64,53 @@
         .then(response => response.json())
         .then(data => {
             translationParagraph.textContent = data.translate_out;
-            console.log(data.translations_list);
+
+            const langFromSelect = document.getElementById('lang-from');
+            const langToSelect = document.getElementById('lang-to');
+
+            // 清空之前的选项
+            translatorRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    langFromSelect.innerHTML = '';
+                    langToSelect.innerHTML = '';
+                });
+            });
+
+            // 添加新选项
+            const optionAuto = document.createElement('option');
+            optionAuto.value = 'auto';
+            optionAuto.textContent = 'Autodetect';
+            langFromSelect.appendChild(optionAuto);
+
+            const i = data.language_list.length;
+
+            for (let j = 0; j < i; j++) {
+                const translation = data.translation_list[j];
+                const language = data.language_list[j];
+
+                const optionFrom = document.createElement('option');
+                optionFrom.value = translation.languageCode;
+                optionFrom.textContent = language.language;
+                langFromSelect.appendChild(optionFrom);
+
+                const optionTo = document.createElement('option');
+                optionTo.value = translation.languageCode;
+                optionTo.textContent = language.language;
+                langToSelect.appendChild(optionTo);
+            }
+
         })
         .catch(error => {
             console.error('Error:', error);
         });
     }
-
+    
     function countCharacters() {
         const text = textArea.value;
         const currentCount = text.length;
         charCountSpan.textContent = `${currentCount}/250`;
     }
+
 
     textArea.addEventListener('input', translateText);
     langFromSelect.addEventListener('change', translateText);
@@ -97,6 +121,7 @@
     window.onload = function() {
         translateText();
     };
+    setInterval(translateText, 1000);
 </script>
 
 </body>
