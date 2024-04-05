@@ -4,54 +4,58 @@
 </head>
 <body>
     <h1>Welcome</h1>
-    <form>
-        <label for="text">Enter text:</label>
-        <textarea id="text" name="text" rows="4" cols="50" maxlength="250" oninput="countCharacters()"></textarea>
+    <form id="translationForm">
+        <label for="translation_text_in">Enter text:</label>
+        <textarea id="translation_text_in" name="translation_text_in" rows="4" cols="50" maxlength="250" oninput="countCharacters()"></textarea>
         <br/>
         <span id="char-count">0/250</span>
+        <br/>
+        <label for="translator">Translator: {{ translator_select_in }}</label>
+        {% set default_translator = translator[0].translator %}
+        {% for translator in translator %}
+            <input type="radio" id="{{ translator.translator }}" name="translator" value="{{ translator.translator }}" {% if translator.translator == default_translator %}checked{% endif %}>
+            <label for="{{ translator.translator }}">   {{ translator.translator }}   </label>
+        {% endfor %}
         <br/>
 
         <label for="lang-from">Translate From:</label>
         <select id="lang-from" name="lang-from">
-            <option value="autodetect">Autodetect</option>
-            <option value="zh-tw">Chinese (Traditional)</option>
-            <option value="zh">Chinese (Traditional)</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
         </select>
         <br/>
 
         <label for="lang-to">Translate to:</label>
         <select id="lang-to" name="lang-to">
-            <option value="zh-tw">Chinese (Traditional)</option>
-            <option value="zh">Chinese (Traditional)</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
         </select>
         <br/>
-
     </form>
     <h2>Translation:</h2>
-    <p id="translation"></p>
+    <p id="translation_text_out"></p>
 
 <script>
-    const textArea = document.getElementById('text');
-    const translationParagraph = document.getElementById('translation');
+    const textArea = document.getElementById('translation_text_in');
+    const translationParagraph = document.getElementById('translation_text_out');
     const langFromSelect = document.getElementById('lang-from');
     const langToSelect = document.getElementById('lang-to');
     const charCountSpan = document.getElementById('char-count');
+    const translatorRadios = document.querySelectorAll('input[name="translator"]');
 
-    function translateText() {
+    function translateText(translator) {
         const text = textArea.value;
         const langFrom = langFromSelect.value;
         const langTo = langToSelect.value;
+        let translatorSelect = '';
+
+        translatorRadios.forEach(radio => {
+            if (radio.checked) {
+                translatorSelect = radio.value;
+            }
+        });
 
         const formData = new FormData();
         formData.append('text', text);
         formData.append('langFrom', langFrom);
         formData.append('langTo', langTo);
+        formData.append('translatorSelect', translatorSelect);
 
         fetch('/translate', {
             method: 'POST',
@@ -59,22 +63,66 @@
         })
         .then(response => response.json())
         .then(data => {
-            translationParagraph.textContent = data.translation;
+            translationParagraph.textContent = data.translate_out;
+
+            const langFromSelect = document.getElementById('lang-from');
+            const langToSelect = document.getElementById('lang-to');
+
+            // 清空之前的选项
+            translatorRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    langFromSelect.innerHTML = '';
+                    langToSelect.innerHTML = '';
+                });
+            });
+
+            // 添加新选项
+            const optionAuto = document.createElement('option');
+            optionAuto.value = 'auto';
+            optionAuto.textContent = 'Autodetect';
+            langFromSelect.appendChild(optionAuto);
+
+            const i = data.language_list.length;
+
+            for (let j = 0; j < i; j++) {
+                const translation = data.translation_list[j];
+                const language = data.language_list[j];
+
+                const optionFrom = document.createElement('option');
+                optionFrom.value = translation.languageCode;
+                optionFrom.textContent = language.language;
+                langFromSelect.appendChild(optionFrom);
+
+                const optionTo = document.createElement('option');
+                optionTo.value = translation.languageCode;
+                optionTo.textContent = language.language;
+                langToSelect.appendChild(optionTo);
+            }
+
         })
         .catch(error => {
             console.error('Error:', error);
         });
     }
-
+    
     function countCharacters() {
         const text = textArea.value;
         const currentCount = text.length;
         charCountSpan.textContent = `${currentCount}/250`;
     }
 
+
     textArea.addEventListener('input', translateText);
     langFromSelect.addEventListener('change', translateText);
     langToSelect.addEventListener('change', translateText);
+    translatorRadios.forEach(radio => {
+        radio.addEventListener('change', translateText);
+    });
+    window.onload = function() {
+        translateText();
+    };
+    setInterval(translateText, 1000);
 </script>
+
 </body>
 </html>
