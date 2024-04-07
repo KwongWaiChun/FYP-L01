@@ -55,7 +55,10 @@
         "ms-azuretools.vscode-docker"
       ]
     },
-    "postCreateCommand": "curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && sudo apt update && sudo apt install nodejs"
+    "docker": {
+      "image": "python:3",
+      "dockerfile": "Dockerfile"
+    }
   },
   "forwardPorts": [
     5000,
