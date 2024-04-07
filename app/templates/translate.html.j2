@@ -115,7 +115,7 @@
 
     textArea.addEventListener('input', function() {
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(translateText, 500); // 在500毫秒內沒有輸入時執行translateText函數
+        timeoutId = setTimeout(translateText, 750); // 在750毫秒內沒有輸入時執行translateText函數
     });
 
     langFromSelect.addEventListener('change', translateText);
