@@ -1,6 +1,5 @@
 ARG VARIANT=3-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-14
 
 ENV PYTHONUNBUFFERED 1
 
