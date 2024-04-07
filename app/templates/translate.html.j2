@@ -111,8 +111,13 @@
         charCountSpan.textContent = `${currentCount}/250`;
     }
 
+    let timeoutId = null;
 
-    textArea.addEventListener('input', translateText);
+    textArea.addEventListener('input', function() {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(translateText, 500); // 在500毫秒內沒有輸入時執行translateText函數
+    });
+
     langFromSelect.addEventListener('change', translateText);
     langToSelect.addEventListener('change', translateText);
     translatorRadios.forEach(radio => {
@@ -121,7 +126,6 @@
     window.onload = function() {
         translateText();
     };
-    setInterval(translateText, 1000);
 </script>
 
 </body>
