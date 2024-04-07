@@ -55,10 +55,6 @@
         "ms-azuretools.vscode-docker"
       ]
     },
-    "docker": {
-      "image": "python:3",
-      "dockerfile": "Dockerfile"
-    }
   },
   "forwardPorts": [
     5000,
