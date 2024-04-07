@@ -1,11 +1,9 @@
 ARG VARIANT=3-bullseye
-FROM python:3
+FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get update \
     && apt-get install -y nodejs
-
-FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
 ENV PYTHONUNBUFFERED 1
 
