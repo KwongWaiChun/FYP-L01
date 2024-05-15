@@ -11,6 +11,7 @@ bcrypt==4.1.2
 beautifulsoup4==4.11.1
 bleach==5.0.1
 blinker==1.5
+cachetools==5.3.3
 certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==2.1.1
@@ -44,9 +45,11 @@ Flask-SQLAlchemy==3.0.2
 Flask-WTF==1.0.1
 fonttools==4.38.0
 fqdn==1.5.1
+gevent==24.2.1
 gitdb==4.0.10
 GitPython==3.1.29
-greenlet==2.0.1
+google-auth==2.29.0
+greenlet==3.0.3
 html-tag-names==0.1.2
 html-void-elements==0.1.0
 idna==3.4
@@ -74,6 +77,7 @@ jupyterlab-git==0.40.1
 jupyterlab-pygments==0.2.2
 jupyterlab_server==2.16.5
 kiwisolver==1.4.4
+kubernetes==29.0.0
 lxml==4.9.4
 Mako==1.2.4
 MarkupSafe==2.1.1
@@ -94,6 +98,7 @@ nvidia-cublas-cu11==11.10.3.66
 nvidia-cuda-nvrtc-cu11==11.7.99
 nvidia-cuda-runtime-cu11==11.7.99
 nvidia-cudnn-cu11==8.5.0.96
+oauthlib==3.2.2
 packaging==22.0
 pandas==1.5.2
 pandocfilters==1.5.0
@@ -114,6 +119,8 @@ psutil==5.9.4
 psycopg2==2.9.5
 ptyprocess==0.7.0
 pure-eval==0.2.2
+pyasn1==0.6.0
+pyasn1_modules==0.4.0
 pycparser==2.21
 PyExecJS==1.5.1
 Pygments==2.13.0
@@ -129,8 +136,10 @@ PyYAML==6.0
 pyzmq==24.0.1
 regex==2022.10.31
 requests==2.31.0
+requests-oauthlib==2.0.0
 rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
+rsa==4.9
 scikit-learn==1.2.0
 scipy==1.9.3
 seaborn==0.12.1
@@ -163,3 +172,5 @@ websocket-client==1.4.2
 Werkzeug==2.2.2
 WTForms==3.0.1
 zipp==3.11.0
+zope.event==5.0
+zope.interface==6.3

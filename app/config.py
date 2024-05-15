@@ -1,19 +1,35 @@
 from sshtunnel import SSHTunnelForwarder
 import os
+from kubernetes import client, config
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def create_ssh_tunnel():
-    ssh_host = 'ec2-23-20-58-240.compute-1.amazonaws.com'
-    ssh_port = 22
-    ssh_username = 'ec2-user'
-    ssh_private_key = 'app/key/labsuser.pem'
+    # Load the Kubernetes configuration
+    config.load_kube_config()
 
-    rds_host = 'fyp-auroracluster-3sojpv1iwlyb.cluster-c7aws6ioupad.us-east-1.rds.amazonaws.com'
-    rds_port = 3306
-    rds_username = 'admin'
-    rds_password = 'admin123'
-    rds_database = 'MyDatabase'
+    # Create a Kubernetes client
+    api_client = client.ApiClient()
+
+    # Specify the namespace and secret name
+    namespace = "staging"
+    secret_name = "ssh-tunnel"
+
+    # Retrieve the secret
+    v1 = client.CoreV1Api(api_client)
+    secret = v1.read_namespaced_secret(name=secret_name, namespace=namespace)
+
+    # Access the data from the secret
+    data = secret.data
+
+    # Extract the values from the secret data
+    ssh_host = data["ssh_host"]
+    ssh_username = data["ssh_username"]
+    ssh_private_key = data["ssh_private_key"]
+    rds_host = data["rds_host"]
+    rds_username = data["rds_username"]
+    rds_password = data["rds_password"]
+    rds_database = data["rds_database"]
 
     server = SSHTunnelForwarder(
         (ssh_host, ssh_port),
