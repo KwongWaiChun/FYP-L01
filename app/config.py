@@ -38,7 +38,12 @@ def create_ssh_tunnel():
         remote_bind_address=(rds_host, rds_port),
     )
     server.start()
-    connection_url = f"mysql+pymysql://{rds_username}:{rds_password}@127.0.0.1:{server.local_bind_port}/{rds_database}"
+    if rds_port == 3306:
+        connection_url = f"mysql+pymysql://{rds_username}:{rds_password}@localhost:{server.local_bind_port}/{rds_database}"
+    elif rds_port == 5432:
+        connection_url = f"postgresql://{rds_username}:{rds_password}@localhost:{server.local_bind_port}/{rds_database}"
+    else:
+        raise ValueError("Unsupported RDS port")
     return connection_url
 
 class Config(object):
