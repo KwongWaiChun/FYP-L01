@@ -7,11 +7,14 @@ from app.models import *
 from datetime import datetime
 
 import translators as ts
+import google.generativeai as genai
 import requests
 import os
 
 #API
-api_id = 'e5ajctjbfg'
+genai.configure(api_key="AIzaSyBKKrru_GxR7mqkwhxCQArhR_visshHGRA")
+model = genai.GenerativeModel('gemini-1.0-pro-latest')
+aws_api_id = 'e5ajctjbfg'
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -29,7 +32,7 @@ def index():
         }
 
         # Make an HTTP POST request to the API Gateway endpoint
-        response = requests.post('https://' + api_id + '.execute-api.us-east-1.amazonaws.com/prod/data', json=data)
+        response = requests.post('https://' + aws_api_id + '.execute-api.us-east-1.amazonaws.com/prod/data', json=data)
 
         response_data = response.json()
 
@@ -89,6 +92,16 @@ def translate():
         t_details = {"translate_out": translate_out, "translation_list": serialized_translations, "language_list": serialized_languages}
         return jsonify(t_details)
     return render_template('translate.html.j2', translator=translator)
+
+@app.route('/travel-itinerary-planner', methods=['GET', 'POST'])
+def planner():
+# Generate some text.
+def generate_itinerary(source, destination, start_date, end_date, no_of_day):
+    prompt = f"Generate a personalized trip itinerary for a {no_of_day}-day trip {source} to {destination} from {start_date} to {end_date}, with an optimum budget (Currency:HKD)."
+    response = model.generate_content(prompt)
+    return(response.text)
+    
+    return render_template('travel-itinerary-planner.html.j2')
 
 @app.route('/forget', methods=['GET', 'POST'])
 def forget():
