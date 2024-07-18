@@ -23,9 +23,11 @@ def create_ssh_tunnel():
     data = secret.data
 
     # Extract the values from the secret data
+    ssh_port = "22"
     ssh_host = data["ssh_host"]
     ssh_username = data["ssh_username"]
     ssh_private_key = data["ssh_private_key"]
+    rds_port = ""
     rds_host = data["rds_host"]
     rds_username = data["rds_username"]
     rds_password = data["rds_password"]

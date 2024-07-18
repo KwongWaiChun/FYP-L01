@@ -6,14 +6,24 @@ pip3 install -r requirements.txt<br/>
 pip install translators<br/>
 pip install sshtunnel<br/>
 pip install pymysql<br/>
+pip install sqlite-web<br/>
 <br/>
+
 Useful commands:<br/>
+pip install sqlite-web
 flask db init<br/>
 flask db migrate -m "Initial migration."<br/>
 flask db upgrade<br/>
 flask --debug run --host=0.0.0.0<br/>
 pip freeze > requirements.txt<br/>
 python3 -m http.server<br/>
+<br/>
+
+Create database:<br/>
+cd app<br/>
+sqlite_web -p 8000 -H 127.0.0.1 app.db<br/>
+cd ..<br/>
+<br/>
 
 Useful link:<br/>
 <a href="https://fontawesome.com/search?o=r&m=free" target="_blank">Font Awesome</a>
