@@ -50,6 +50,7 @@ def create_ssh_tunnel():
 
 class Config(object):
     SECRET_KEY = os.environ.get("SECRET_KEY") or "you-will-never-guess"
-    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or create_ssh_tunnel() or \
-        'sqlite:///'+os.path.join(basedir, 'app.db')
+    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or \
+        'sqlite:///' + os.path.join(basedir, 'app.db') or \
+        create_ssh_tunnel()
     SQLALCHEMY_TRACK_MODIFICATIONS = False

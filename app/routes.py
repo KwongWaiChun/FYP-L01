@@ -95,11 +95,12 @@ def translate():
 
 @app.route('/travel-itinerary-planner', methods=['GET', 'POST'])
 def planner():
+
 # Generate some text.
-def generate_itinerary(source, destination, start_date, end_date, no_of_day):
-    prompt = f"Generate a personalized trip itinerary for a {no_of_day}-day trip {source} to {destination} from {start_date} to {end_date}, with an optimum budget (Currency:HKD)."
-    response = model.generate_content(prompt)
-    return(response.text)
+##def generate_itinerary(source, destination, start_date, end_date, no_of_day):
+##    prompt = f"Generate a personalized trip itinerary for a {no_of_day}-day trip {source} to {destination} from {start_date} to {end_date}, with an optimum budget (Currency:HKD)."
+##    response = model.generate_content(prompt)
+##    return(response.text)
     
     return render_template('travel-itinerary-planner.html.j2')
 
