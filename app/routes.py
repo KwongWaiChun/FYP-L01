@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user, login_required
 from app import app, db
 from app.models import *
 
-from datetime import datetime
+import datetime
 
 import translators as ts
 import google.generativeai as genai
@@ -14,7 +14,13 @@ import os
 #API
 genai.configure(api_key="AIzaSyBKKrru_GxR7mqkwhxCQArhR_visshHGRA")
 model = genai.GenerativeModel('gemini-1.0-pro-latest')
+weather_api_key = "HUWKPABHTM63Q2TKPPXW6XU3V"
 aws_api_id = 'e5ajctjbfg'
+
+# Injecting current time into all templates for copyright year automatically updation
+@app.context_processor
+def inject_now():
+    return {'now': datetime.datetime.now()}
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -32,23 +38,23 @@ def index():
         }
 
         # Make an HTTP POST request to the API Gateway endpoint
-        response = requests.post('https://' + aws_api_id + '.execute-api.us-east-1.amazonaws.com/prod/data', json=data)
+        ###response = requests.post('https://' + aws_api_id + '.execute-api.us-east-1.amazonaws.com/prod/data', json=data)
 
-        response_data = response.json()
+        ###response_data = response.json()
 
         # Access the message from the response
-        message = response_data['message']
-        session['ms'] = message
+        ###message = response_data['message']
+        ###session['ms'] = message
 
-        if response.status_code == 200:
+        ###if response.status_code == 200:
             # Handle a successful response from the API Gateway
-            return redirect(url_for('login'))
-        else:
+        ###    return redirect(url_for('login'))
+        ###else:
             # Handle an error response from the API Gateway
             # You can display an error message to the user or perform other error handling logic
-            session.pop('ac', None)  # 從session中移除'ac'
-            session.pop('pw', None)  # 從session中移除'pw'
-            return redirect(url_for('index'))
+        ###    session.pop('ac', None)  # 從session中移除'ac'
+        ###    session.pop('pw', None)  # 從session中移除'pw'
+        ###    return redirect(url_for('index'))
     return render_template("index.html.j2")
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -93,14 +99,55 @@ def translate():
         return jsonify(t_details)
     return render_template('translate.html.j2', translator=translator)
 
-@app.route('/travel-itinerary-planner', methods=['GET', 'POST'])
+
+@app.route('/travel-itinerary-planner', methods=["GET", "POST"])
 def planner():
 
-# Generate some text.
-##def generate_itinerary(source, destination, start_date, end_date, no_of_day):
-##    prompt = f"Generate a personalized trip itinerary for a {no_of_day}-day trip {source} to {destination} from {start_date} to {end_date}, with an optimum budget (Currency:HKD)."
-##    response = model.generate_content(prompt)
-##    return(response.text)
+    def generate_itinerary(source, destination, start_date, end_date, no_of_day):
+        prompt = f"Generate a personalized trip itinerary for a {no_of_day}-day trip {source} to {destination} from {start_date} to {end_date}, with an optimum budget (Currency:HKD)."
+        response = model.generate_content(prompt)
+        return response.text
+
+    def get_weather_data(weather_api_key: str, location: str, start_date: str, end_date: str) -> dict:
+        # Date Formatting as per API "YYYY-MM-DD"
+        base_url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{location}/{start_date}/{end_date}?unitGroup=metric&include=days&key={weather_api_key}&contentType=json"
+
+        try:
+            response = requests.get(base_url)
+            response.raise_for_status()
+            data = response.json()
+            return data
+        except requests.exceptions.RequestException as e:
+            print("Error:", e)
+
+    if request.method == "POST":
+        global source, destination, start_date, end_date
+        source = request.form.get("source")
+        destination = request.form.get("destination")
+        start_date = request.form.get("date")
+        end_date = request.form.get("return")
+        # Calculating the number of days
+        no_of_day = (datetime.datetime.strptime(end_date, "%Y-%m-%d") - datetime.datetime.strptime(start_date, "%Y-%m-%d")).days
+        # Process the route input here
+        if no_of_day < 0:
+            flash("Return date should be greater than the Travel date (Start date).", "danger")
+            return redirect(url_for("planner"))
+        else:
+            try:
+                weather_data = get_weather_data(weather_api_key, destination, start_date, end_date)
+            except requests.exceptions.RequestException as e:
+                flash(f"Error in retrieving weather data: {e}", "danger")
+                return redirect(url_for("planner"))
+        
+        try:
+            plan = generate_itinerary(source, destination, start_date, end_date, no_of_day)
+        except Exception as e:
+            flash("Error in generating the plan. Please try again later.", "danger")
+            return redirect(url_for("planner"))
+        
+        if weather_data:
+            # Render the weather information in the template
+            return render_template("travel-genai.html.j2", weather_data=weather_data, plan=plan)
     
     return render_template('travel-itinerary-planner.html.j2')
 
