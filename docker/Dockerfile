@@ -15,6 +15,6 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get update \
     && apt-get install -y nodejs
 
-EXPOSE 443
+EXPOSE 80
 
 CMD ["venv/bin/python3", "run.py"]
