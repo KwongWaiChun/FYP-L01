@@ -54,7 +54,7 @@
         "monosans.djlint",
         "ms-azuretools.vscode-docker"
       ]
-    },
+    }
   },
   "forwardPorts": [
     5000,
