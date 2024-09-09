@@ -1,4 +1,4 @@
-ARG VARIANT=python:3.10
+ARG VARIANT=3.10
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
