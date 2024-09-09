@@ -1,5 +1,5 @@
 {
-  "name": "Python",
+  "name": "Python 3 & PostgreSQL",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "hostRequirements": {
@@ -16,6 +16,14 @@
       "protocol": "http",
       "onAutoForward": "openPreview"
     },
+    "5050": {
+      "label": "pgadmin",
+      "onAutoForward": "openPreview"
+    },
+    "8025": {
+      "label": "mailhog",
+      "onAutoForward": "openPreview"
+    }
   },
   "customizations": {
     "codespaces": {
@@ -50,8 +58,41 @@
   },
   "forwardPorts": [
     5000,
+    5050,
+    8025
   ],
   "features": {
     "ghcr.io/devcontainers/features/docker-from-docker:1": {}
   }
+}
+
+
+
+{
+  "name": "Python 3",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/python:0-3.11-bullseye",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/coverage-py:2": {}
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "pip3 install --user -r requirements.txt",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  }
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }
