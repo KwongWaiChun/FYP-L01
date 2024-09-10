@@ -1,7 +1,17 @@
 {
-  "name": "Python 3 & PostgreSQL",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
+  "name": "Python Flask",
+  "build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": { 
+			// Update 'VARIANT' to pick a Python version: 3, 3.9, 3.8, 3.7, 3.6.
+			// Append -bullseye or -buster to pin to an OS version.
+			// Use -bullseye variants on local on arm64/Apple Silicon.
+			"VARIANT": "3.9-bullseye",
+			// Options
+			"NODE_VERSION": "lts/*"
+		}
+	},
   "hostRequirements": {
     "cpus": 2
   },
@@ -14,14 +24,6 @@
     "5000": {
       "label": "Flask Apps",
       "protocol": "http",
-      "onAutoForward": "openPreview"
-    },
-    "5050": {
-      "label": "pgadmin",
-      "onAutoForward": "openPreview"
-    },
-    "8025": {
-      "label": "mailhog",
       "onAutoForward": "openPreview"
     }
   },
@@ -54,14 +56,10 @@
         "monosans.djlint",
         "ms-azuretools.vscode-docker"
       ]
-    },
+    }
   },
   "forwardPorts": [
-    5000,
-    5050,
-    8025
+    5000
   ],
-  "features": {
-    "ghcr.io/devcontainers/features/docker-from-docker:1": {}
-  }
+  "remoteUser": "vscode"
 }
