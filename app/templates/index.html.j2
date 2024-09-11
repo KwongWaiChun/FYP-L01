@@ -46,6 +46,13 @@
                     </div>
 
                     <div class="inputs">
+                      {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                          {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} text-center my-4" role="alert">{{ message }}</div>
+                          {% endfor %}
+                        {% endif %}
+                      {% endwith %}
 			                <input type="text" name="account" placeholder="User Name">
 			                <br>
 			                <input type="password" name="password" placeholder="Password">

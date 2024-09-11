@@ -1,12 +1,68 @@
-<!-- login.html.j2 -->
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <h1>Login Page</h1>
-    <p>Account: {{ ac }}</p>
-    <p>Password: {{ pw }}</p>
-    <p>Message: {{ ms }}</p>
-</body>
-</html>
+{% extends "login-base.html.j2" %}
+
+{% set title = "Login" %}
+
+{% block content %}
+    <form method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center"><br><strong><span style="color: rgb(220, 68, 1);">現有會員／訂戶</span></strong><br><br></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center my-4" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>    
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="width: 40%;">
+                    <h6 class="text-end d-xxl-flex justify-content-xxl-end align-items-xxl-center" style="height: 30px;width: 100%;text-align: center;"><strong><span style="color: rgb(51, 51, 51);">登入電郵</span></strong></h6>
+                </div>
+                <div class="col-md-6" style="width: 60%;"><input class="form-control d-xxl-flex" type="email" name="email" style="width: 300px;"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div style="height: 30px;"></div>
+                </div>
+            </div>
+        </div>        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="width: 40%;">
+                    <h6 class="text-end d-xxl-flex justify-content-xxl-end align-items-xxl-center" style="height: 30px;width: 100%;text-align: right;"><strong><span style="color: rgb(51, 51, 51);">密碼</span></strong><br><br><br></h6>
+                </div>
+                <div class="col-md-6" style="width: 60%;"><input class="form-control d-xxl-flex" type="password" name="password" style="width: 300px;"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div style="height: 15px;"></div>
+                </div>
+            </div>
+        </div>        
+
+        <div class="container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col text-start" style="width: 50%;">
+                                    <p class="text-center" style="font-size: 18px;"><a href="{{url_for('forget_pw')}}"><span style="color: rgb(248, 117, 0);">忘記密碼?</span></a></p> <button class="btn btn-primary d-flex justify-content-center align-items-center mx-auto my-3" style="color: var(--bs-btn-disabled-color);background: #fc6a00;border-radius: 0px;height: 40px;width: 20%;"> 登入 </button>
+                                    <p class="text-center" style="font-size: 18px;"><br><a href="{{url_for('login_form')}}"><span style="color: rgb(248, 117, 0);">註冊成為新會員</span></a></p>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+        <br><br><br><br><br>
+    </form>
+{% endblock %}

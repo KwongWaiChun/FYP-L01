@@ -3,8 +3,9 @@ from flask_login import login_user, logout_user, login_required
 
 from app import app, db
 from app.models import *
+from app.function import *
 
-import datetime
+from datetime import datetime
 
 import translators as ts
 import google.generativeai as genai
@@ -17,55 +18,32 @@ model = genai.GenerativeModel('gemini-1.0-pro-latest')
 weather_api_key = "HUWKPABHTM63Q2TKPPXW6XU3V"
 aws_api_id = 'e5ajctjbfg'
 
-# Injecting current time into all templates for copyright year automatically updation
-@app.context_processor
-def inject_now():
-    return {'now': datetime.datetime.now()}
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         account = request.form.get('account')
         password = request.form.get('password')
-        session['ac'] = account
-        session['pw'] = password
-
-        # Create a dictionary with the data to send
-        data = {
-            'account': account,
-            'password': password
-        }
-
-        # Make an HTTP POST request to the API Gateway endpoint
-        ###response = requests.post('https://' + aws_api_id + '.execute-api.us-east-1.amazonaws.com/prod/data', json=data)
-
-        ###response_data = response.json()
-
-        # Access the message from the response
-        ###message = response_data['message']
-        ###session['ms'] = message
-
-        ###if response.status_code == 200:
-            # Handle a successful response from the API Gateway
-        ###    return redirect(url_for('login'))
-        ###else:
-            # Handle an error response from the API Gateway
-            # You can display an error message to the user or perform other error handling logic
-        ###    session.pop('ac', None)  # 從session中移除'ac'
-        ###    session.pop('pw', None)  # 從session中移除'pw'
-        ###    return redirect(url_for('index'))
+        password_correct = check_password(password, account)
+        if password_correct == "true":
+            return render_template("menu.html.j2")
+        else:
+            if account or password is None:
+                problem = "None"
+            else:
+                problem = "Wrong"
+            return render_template("login.html.j2", problem=problem)
     return render_template("index.html.j2")
+
+@app.route('/meun', methods=['GET', 'POST'])
+def meun():
+    return render_template("meun.html.j2")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    ac = session.get('ac')
-    pw = session.get('pw')
-    ms = session.get('ms')
-    session.pop('ac', None)  # 從session中移除'ac'
-    session.pop('pw', None)  # 從session中移除'pw'
-    session.pop('ms', None)
-    return render_template('login.html.j2', ac=ac, pw=pw, ms=ms)
+    if account or password is None:
+        flash('Please fill in your account name or password!', 'danger')
+    return render_template('login.html.j2', ac=ac, pw=pw, pc=pc)
 
 @app.route('/translate', methods=['GET', 'POST'])
 def translate():
@@ -168,8 +146,8 @@ def flight():
 @app.route('/dbtest')
 def dbtest():
     db.create_all()
-    u1 = User(userID=1, username='john1', email='john1@example.com', password='test01@', login_state=True, last_login=datetime.now(), create_time=datetime.now())
-    u2 = User(userID=2, username='susan1', email='susan1@example.com', password='test02@', login_state=True, last_login=datetime.now(), create_time=datetime.now())
+    u1 = User(userID=1, username='test01', email='test01@example.com', password=hash_password('Test01@'), login_state=True, last_login=datetime.now(), create_time=datetime.now())
+    u2 = User(userID=2, username='test02', email='test02@example.com', password=hash_password('Test02@'), login_state=True, last_login=datetime.now(), create_time=datetime.now())
     db.session.add(u1)
     db.session.add(u2)
     db.session.commit()
