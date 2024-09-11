@@ -41,9 +41,12 @@ def meun():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if account or password is None:
-        flash('Please fill in your account name or password!', 'danger')
-    return render_template('login.html.j2', ac=ac, pw=pw, pc=pc)
+    if request.method == 'POST':
+        account = request.form.get('account')
+        password = request.form.get('password')
+        if account or password is None:
+            flash('Please fill in your account name or password!', 'danger')
+    return render_template('login.html.j2')
 
 @app.route('/translate', methods=['GET', 'POST'])
 def translate():
